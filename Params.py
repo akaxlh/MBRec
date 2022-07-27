@@ -1,0 +1,28 @@
+import argparse
+
+def parse_args():
+	parser = argparse.ArgumentParser(description='Model Params')
+	parser.add_argument('--lr', default=2e-4, type=float, help='learning rate')
+	parser.add_argument('--batch', default=32, type=int, help='batch size')
+	parser.add_argument('--reg', default=5e-2, type=float, help='weight decay regularizer')
+	parser.add_argument('--epoch', default=120, type=int, help='number of epochs')
+	parser.add_argument('--decay', default=0.99, type=float, help='weight decay rate')
+	parser.add_argument('--save_path', default='tem', help='file name to save model and training record')
+	parser.add_argument('--latdim', default=16, type=int, help='embedding size')
+	parser.add_argument('--mult', default=1e2, type=float, help='mult for pred')
+	parser.add_argument('--memosize', default=8, type=int, help='memory size')
+	parser.add_argument('--sampNum', default=40, type=int, help='batch size for sampling')
+	parser.add_argument('--attHead', default=2, type=int, help='number of attention heads')
+	parser.add_argument('--trnNum', default=10000, type=int, help='number of training instances per epoch')
+	parser.add_argument('--load_model', default=None, help='model name to load')
+	parser.add_argument('--shoot', default=10, type=int, help='K of top k')
+	parser.add_argument('--data', default='beibei', type=str, help='name of dataset')
+	parser.add_argument('--gnn_layer', default=2, type=int, help='number of gnn layers')
+	parser.add_argument('--save_embed', default=False, type=bool, help='whether to save learned embeddings for pretraining code')
+	parser.add_argument('--test_epoch', default=1, type=int, help='how many epoches to test')
+	parser.add_argument('--graphSampleN', default=20000, type=int, help='subgraph size')
+	parser.add_argument('--keepRate', default=1.0, type=float, help='keep rate for edge dropout')
+	parser.add_argument('--negNum', default=99, type=int, help='number of negative samples when testing')
+	return parser.parse_args()
+args = parse_args()
+args.decay_step = args.trnNum // args.batch
